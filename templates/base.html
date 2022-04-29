@@ -11,6 +11,8 @@
 <body>
     {% block body %}{% endblock %}
 </body>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript"
+    src="{{ url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
     {% block footer %}{% endblock %}
 </html>

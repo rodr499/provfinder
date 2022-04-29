@@ -11,7 +11,7 @@ class NPIregistry():
     def apiURL(self):
 
         if (self.api == 1):
-            apiURL = 'https://npiregistry.cms.hhs.gov/api/?version=2.1&' + str(self.limit) + '&'
+            apiURL = 'https://npiregistry.cms.hhs.gov/api/?version=2.1&limit=' + str(self.limit) + '&'
         else:
             # This API with only work with CMS Order and Referring Dataset
             apiURL = 'https://data.cms.gov/data-api/v1/dataset/0824b6d0-14ad-47a0-94e2-f317a3658317/data?'
@@ -33,21 +33,12 @@ class NPIregistry():
         return fields
 
     def urlBuiler(self):
-
         apiURL = self.apiURL() + self.fieldsBuilder()
-
         return apiURL
 
     def requestDataset(self):
-
         data = requests.get(self.urlBuiler()).json()
-
-        print(data)
-
         return data       
-
-# NPIregistry(1,number=1356532162,).requestDataset()
-# NPIregistry(2,NPI=1356532162).requestDataset()
 
 """
 API 1
