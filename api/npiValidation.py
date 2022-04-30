@@ -1,5 +1,7 @@
 import math
 
+# TODO: Create Error List
+
 class NPIValidation():
 
     def __init__(self, npi):
@@ -15,7 +17,6 @@ class NPIValidation():
            results = self.checkDigit()
         else:
            results = False
-
         return results
 
     def everyOtherNumber(self):
@@ -63,7 +64,6 @@ class NPIValidation():
             results = True
         else:
             results = False
-        
         return results
 
     def round_up(self, n, decimals=0): 
