@@ -1,3 +1,4 @@
+import re
 from flask import Flask, render_template, request as req, url_for, flash
 from api.npiAPI import NPIregistry
 from api.npiValidation import NPIValidation
@@ -12,27 +13,22 @@ def not_found(e):
 
 @app.route("/", methods=['POST','GET'])
 def main():
-
     return render_template("main.html")
 
 @app.route("/find", methods=['POST','GET'])
-def findProvider():
+def viewProvider():
     results = None
     error = None
+
     if req.method == 'POST':
-        npiCheck = NPIValidation(req.form['search']).checkNPI()
+        npiCheck = NPIValidation(req.form['number']).checkNPI()
         if npiCheck:
-            results = NPIregistry(1,number=req.form['search']).requestDataset()
-            pecosResults = NPIregistry(2,NPI=req.form['search']).requestDataset()
-            print(pecosResults)
+            results = NPIregistry(1,number=req.form['number'],first_name='',last_name='').requestDataset()  
             if (results['result_count'] == 1):
+                pecosResults = NPIregistry(2,NPI=results['results'][0]['number']).requestDataset()
+                print(len(pecosResults))
                 return render_template("results/providerPage.html", results=results['results'][0],pecos=pecosResults)
-            else:
-                results = NPIregistry(1,first_name=req.form['firstName'],last_name=req.form['lastName']).requestDataset()
-                # pecosResults = NPIregistry(2,NPI=req.form['search']).requestDataset()
-                print(results)
         else:
             flash('INVALID NPI', 'error')
             results = 'No!'
-    
     return render_template("results/resultsTable.html", results=results, error=error)

@@ -7,10 +7,24 @@
 {% block body %}
 <div class="row my-3">
     <div class="col">
-        <h1>NPI Number: {{results.number}} </h1>
+        <h1>{% if results.enumeration_type == 'NPI-1' %}       
+                {% if results.basic.gender == 'F' %}
+                    {% set gender = 'Female' %}
+                    <img class="genderIcon" src="{{ url_for('static', filename='img/icons/female_doctor_no_face.png') }}" alt="" srcset="">
+                {% elif results.basic.gender == 'M' %}
+                    {% set gender = 'Male' %}
+                    <img class="genderIcon" src="{{ url_for('static', filename='img/icons/male_doctor_no_face.png') }}" alt="" srcset="">
+                {% else %}
+                    O
+                {% endif %}
+            {% else %}
+            <i class="bi bi-building"></i>
+            {% endif %}
+            NPI Number: {{results.number}} </h1>
         <h6>Last Updated: {{results.basic.last_updated}}</h6>
         <h6>Certification Date: {{results.basic.certification_date}}</h6>
     </div>
+    {% if pecos|length != 0 %}
     <div class="col">
         <div class="card">
             <div class="card-body">
@@ -42,6 +56,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
 
 <div class="accordion" id="accordionExample">
@@ -67,6 +82,7 @@
                             <th scope="row">NPI</th>
                             <td>{{results.number}}</td>
                         </tr>
+                        {% if results.enumeration_type == 'NPI-1' %}
                         <tr>
                             <th scope="row">Name</th>
                             <td>{{results.basic.first_name | capitalize }}
@@ -84,8 +100,26 @@
                         {% endfor%}
                         <tr>
                             <th scope="row">Gander</th>
-                            <td>{{results.basic.gender}}</td>
+                            <td>{{gender}}</td>
                         </tr>
+                        {%else%}
+                        <tr>
+                            <th scope="row">Organization Name</th>
+                            <td>{{results.basic.organization_name}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Organization Subpart</th>
+                            <td>{{results.basic.organizational_subpart}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Authorized Official</th>
+                            <td>{{results.basic.authorized_official_name_prefix}} {{results.basic.authorized_official_first_name}} {{results.basic.authorized_official_middle_name}} {{results.basic.authorized_official_last_name}}, {{results.basic.authorized_official_title_or_position}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Authorized Official Telephone</th>
+                            <td>{{results.basic.authorized_official_telephone_number}}</td>
+                        </tr>
+                        {%endif%}
                         <tr>
                             <th scope="row">Status</th>
                             <td>{{results.basic.status}}</td>
@@ -99,6 +133,7 @@
             </div>
         </div>
     </div>
+    {%if results.taxonomies|length != 0 %}
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingTwo">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -134,6 +169,8 @@
             </div>
         </div>
     </div>
+    {%endif%}
+    {%if results.addresses|length != 0 %}
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingThree">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#address"
@@ -177,6 +214,8 @@
             </div>
         </div>
     </div>
+    {%endif%}
+    {%if results.identifiers|length != 0 %}
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingThree">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -208,6 +247,8 @@
             </div>
         </div>
     </div>
+    {%endif%}
+    {%if results.endpoints|length != 0 %}
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingThree">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#hie"
@@ -250,6 +291,7 @@
             </div>
         </div>
     </div>
+    {%endif%}
 </div>
 
 {% endblock %}
