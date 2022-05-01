@@ -5,22 +5,48 @@
 {% endblock %}
 
 {% block body %}
+<div class="my-3"></div>
 <form action="{{url_for('viewProvider')}}" method="POST">
     <div class="row">
         <div class="col-4 mb-3">
             <label for="firstName" class="form-label">First Name</label>
-            <input type="text" class="form-control" name="firstName" id="firstName">
+            <input type="text" class="form-control" name="first_name" id="firstName">
         </div>
         <div class="col-4 mb-3">
             <label for="lastName" class="form-label">Last Name</label>
-            <input type="text" class="form-control" name="nastName" id="LastName">
+            <input type="text" class="form-control" name="last_name" id="LastName">
         </div>
-        <div class="row">
-            <div class="col-2">
-                <input class="btn btn-outline-success" type="submit" value="Search">
-            </div>
+        <div class="col-4 mb-3">
+            <label for="lastName" class="form-label">Organization Name</label>
+            <input type="text" class="form-control" name="organization_name" id="organization_name">
         </div>
     </div>
+    <div class="row">
+        <div class="col-4 mb-3">
+            <select class="form-select" aria-label="Select country" name="country_code" id="country_code">
+                <option selected disabled>Select country</option>
+                {% for country in countries %}
+                <option value="{{country}}">{{countries[country]}}</option>
+                {% endfor %}   
+            </select>
+        </div>
+        <div class="col-4 mb-3">
+            <select class="form-select" aria-label="Select State" name="state" id="state">
+                <option selected disabled>Select state</option>
+            </select>
+        </div>
+        <div class="col-4 mb-3">
+            <select class="form-select" aria-label="Select City" name="city" id="city">
+                <option selected disabled>Select city</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <input class="btn btn-outline-success" type="submit" value="Search">
+        </div>
+    </div>
+
 </form>
 {% endblock %}
 

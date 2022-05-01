@@ -1,7 +1,7 @@
-import re
 from flask import Flask, render_template, request as req, url_for, flash
-from api.npiAPI import NPIregistry
-from api.npiValidation import NPIValidation
+from npiApi.npiAPI import NPIregistry
+from npiApi.npiValidation import NPIValidation
+from countries_state_cities.calls import Region
 import secrets
 
 app = Flask(__name__)
@@ -13,7 +13,10 @@ def not_found(e):
 
 @app.route("/", methods=['POST','GET'])
 def main():
-    return render_template("main.html")
+
+    countries = Region().callCountry()
+
+    return render_template("main.html", countries=countries)
 
 @app.route("/find", methods=['POST','GET'])
 def viewProvider():
@@ -32,3 +35,10 @@ def viewProvider():
             flash('INVALID NPI', 'error')
             results = 'No!'
     return render_template("results/resultsTable.html", results=results, error=error)
+
+@app.route("/search", methods=['POST','GET'])
+def search():
+
+    countries = Region.callCountry()
+    
+    return render_template("results/providerPage.html", countries=countries)
