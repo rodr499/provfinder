@@ -23,7 +23,7 @@
     </div>
     <div class="row">
         <div class="col-4 mb-3">
-            <select class="form-select" aria-label="Select country" name="country_code" id="country_code">
+            <select class="form-select" aria-label="Select country" name="country_code" id="country_code" onchange="getRegions('state');">
                 <option selected disabled>Select country</option>
                 {% for country in countries %}
                 <option value="{{country}}">{{countries[country]}}</option>
@@ -31,7 +31,7 @@
             </select>
         </div>
         <div class="col-4 mb-3">
-            <select class="form-select" aria-label="Select State" name="state" id="state">
+            <select class="form-select" aria-label="Select State" name="state" id="state" onchange="getRegions('city');">
                 <option selected disabled>Select state</option>
             </select>
         </div>

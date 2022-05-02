@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request as req, url_for, flash
+from unittest import result
+from flask import Flask, jsonify, render_template, request as req, url_for, flash
 from npiApi.npiAPI import NPIregistry
 from npiApi.npiValidation import NPIValidation
 from countries_state_cities.calls import Region
@@ -42,3 +43,15 @@ def search():
     countries = Region.callCountry()
     
     return render_template("results/providerPage.html", countries=countries)
+
+@app.route("/regions/<type>/<int:rid>")
+def regions(type, rid):
+    results = None
+
+    if (type == 'state'):
+        results = Region().callState(rid)
+    elif (type == 'city'):
+        results = Region().callCity(rid)
+    
+    return jsonify(results)
+

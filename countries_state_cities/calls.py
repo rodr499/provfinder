@@ -39,11 +39,10 @@ class Region():
             if (cities[i]['state_id'] == stateID):
                 citiesDict[cities[i]['id']] = cities[i]['name']
         print(citiesDict)
+
         return citiesDict
 
     # def remoteCities(self, hi):
     #     data = requests.get('https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/cities.json').json()
     #     with open(self.root+"/cities.json", 'w', encoding='utf-8') as f:
     #         json.dump(data, f, ensure_ascii=False, indent=4)
-
-print(Region().callCity(1436))
