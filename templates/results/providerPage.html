@@ -86,32 +86,33 @@
                     <tbody>
                         <tr>
                             <th scope="row">NPI</th>
-                            <td>{{results.number}}</td>
+                            <td name="number">{{results.number}} <i class="bi bi-clipboard2" onclick="copyText('number')"></i></td>
                         </tr>
                         {% if results.enumeration_type == 'NPI-1' %}
                         <tr>
                             <th scope="row">Name</th>
-                            <td>{{results.basic.first_name | capitalize }}
+                            <td name="name">{{results.basic.first_name | capitalize }}
                                 {% if results.basic.middle_name != None %}
                                 {{results.basic.middle_name | capitalize}}
                                 {% endif %}
                                 {{results.basic.last_name | capitalize}}{% if results.basic.credential %}, {{results.basic.credential}} {%endif%}
+                                <i class="bi bi-clipboard2" onclick="copyText('name')"></i>
                             </td>
                         </tr>
                         {% for item in results.other_names %}
                         <tr>
                             <th scope="row">{{item.type}}</th>
-                            <td>{{item.first_name| capitalize}} {{item.last_name| capitalize}}{% if item.credential %}, {{item.credential}} {%endif%}</td>
+                            <td name="other_name">{{item.first_name| capitalize}} {{item.last_name| capitalize}}{% if item.credential %}, {{item.credential}} {%endif%} <i class="bi bi-clipboard2" onclick="copyText('other_name')"></i></td>
                         </tr>
                         {% endfor%}
                         <tr>
                             <th scope="row">Gender</th>
-                            <td>{{gender}}</td>
+                            <td name="gender">{{gender}} <i class="bi bi-clipboard2" onclick="copyText('gender')"></i></td>
                         </tr>
                         {%else%}
                         <tr>
                             <th scope="row">Organization Name</th>
-                            <td>{{results.basic.organization_name}}</td>
+                            <td name="org_name">{{results.basic.organization_name}} <i class="bi bi-clipboard2" onclick="copyText('org_name')"></i></td>
                         </tr>
                         <tr>
                             <th scope="row">Organization Subpart</th>
@@ -119,11 +120,13 @@
                         </tr>
                         <tr>
                             <th scope="row">Authorized Official</th>
-                            <td>{{results.basic.authorized_official_name_prefix}} {{results.basic.authorized_official_first_name}} {{results.basic.authorized_official_middle_name}} {{results.basic.authorized_official_last_name}}, {{results.basic.authorized_official_title_or_position}}</td>
+                            <td name="auth_off">{{results.basic.authorized_official_name_prefix}} {{results.basic.authorized_official_first_name}} {{results.basic.authorized_official_middle_name}} {{results.basic.authorized_official_last_name}}, {{results.basic.authorized_official_title_or_position}}
+                                <i class="bi bi-clipboard2" onclick="copyText('auth_off')"></i>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">Authorized Official Telephone</th>
-                            <td>{{results.basic.authorized_official_telephone_number}}</td>
+                            <td name="auth_phone">{{results.basic.authorized_official_telephone_number}} <i class="bi bi-clipboard2" onclick="copyText('auth_phone')"></i></td>
                         </tr>
                         {%endif%}
                         <tr>
@@ -164,10 +167,10 @@
                         {% for item in results.taxonomies %}
                         <tr>
                             <td>{{item.primary}}</td>
-                            <td>{{item.code}}</td>
-                            <td>{{item.desc}}</td>
-                            <td>{{item.state}}</td>
-                            <td>{{item.license}}</td>
+                            <td name="tax_code">{{item.code}} <i class="bi bi-clipboard2" onclick="copyText('tax_code')"></i></td>
+                            <td name="tax_desc">{{item.desc}} <i class="bi bi-clipboard2" onclick="copyText('tax_desc')"></i></td>
+                            <td name="tax_state">{{item.state}} <i class="bi bi-clipboard2" onclick="copyText('tax_state')"></i></td>
+                            <td name="tax_lic">{{item.license}} <i class="bi bi-clipboard2" onclick="copyText('tax_lic')"></i></td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -281,7 +284,7 @@
                         {% for item in results.endpoints %}
                         <tr>
                             <td>{{item.endpointType}}</td>
-                            <td>{{item.endpoint}}</td>
+                            <td name="endpoint">{{item.endpoint}} <i class="bi bi-clipboard2" onclick="copyText('endpoint')"></td>
                             <td>{{item.endpointDescription}}</td>
                             <td>{{item.use}}</td>
                             <td>{{item.contentType}}</td>

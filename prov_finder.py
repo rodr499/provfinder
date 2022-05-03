@@ -17,8 +17,6 @@ def main():
 
     countries = Region().callCountry()
 
-    print(req.form.get('country_code'))
-
     if (req.method == 'POST'):
 
         country_code =str(req.form.get('country_code') or '')
@@ -29,12 +27,6 @@ def main():
         organization_name=req.form['organization_name'],country_code=country_code,city=city,state=state,
         postal_code=req.form['postal_code']).requestDataset()
 
-        resultsUrl = NPIregistry(1,first_name=req.form['first_name'],last_name=req.form['last_name'],
-        organization_name=req.form['organization_name'],country_code=country_code,city=city,state=state,
-        postal_code=req.form['postal_code']).urlBuiler()
-        
-        print(results)
-        print(resultsUrl)
         return render_template("main.html", countries=countries, results=result)
 
     return render_template("main.html", countries=countries)
