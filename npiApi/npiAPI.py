@@ -12,7 +12,7 @@ class NPIregistry():
         if (self.api == 1):
             apiURL = 'https://npiregistry.cms.hhs.gov/api/?version=2.1&limit=' + str(self.limit) + '&'
         else:
-            # This API with only work with CMS Order and Referring Dataset
+            # This API will only work with CMS Order and Referring Dataset
             apiURL = 'https://data.cms.gov/data-api/v1/dataset/0824b6d0-14ad-47a0-94e2-f317a3658317/data?'
         
         return apiURL

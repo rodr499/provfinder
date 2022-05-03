@@ -9502,4 +9502,12 @@ textarea.form-control-lg {
   height: 50px;
 }
 
+.footer {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  text-align: center;
+}
+
 /*# sourceMappingURL=index.css.map */

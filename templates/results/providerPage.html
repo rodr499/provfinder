@@ -59,6 +59,12 @@
     {% endif %}
 </div>
 
+<div class="row my-3">
+    <div class="col">
+        <button type="button" class="btn btn-outline-success" onclick="history.back()">Back</button>
+    </div>
+</div>
+
 <div class="accordion" id="accordionExample">
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
@@ -99,7 +105,7 @@
                         </tr>
                         {% endfor%}
                         <tr>
-                            <th scope="row">Gander</th>
+                            <th scope="row">Gender</th>
                             <td>{{gender}}</td>
                         </tr>
                         {%else%}
@@ -294,6 +300,13 @@
     {%endif%}
 </div>
 
+<div class="row my-3">
+    <div class="col">
+        Link to actual <a href="https://npiregistry.cms.hhs.gov/registry/provider-view/{{results.number}}" target="_blank">NPPES NPI Registry</a> for this record.
+    </div>
+</div>
+
 {% endblock %}
 
-{% block footer %}{% endblock %}
+{% block footer %}
+{% endblock %}

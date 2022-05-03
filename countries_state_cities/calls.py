@@ -17,17 +17,16 @@ class Region():
 
         countriesDict = {}
         for i in range(len(countries)):
-            countriesDict[countries[i]['id']] = countries[i]['name']
+            countriesDict[countries[i]['iso2']] = countries[i]['name']
 
         return countriesDict
 
     def callState(self, countryID):
         states = json.loads(self.files('states'))
-
         statesDict = {}
         for i in range(len(states)):
-            if (states[i]['country_id'] == countryID):
-                statesDict[states[i]['id']] = states[i]['name']
+            if (states[i]['country_code'].upper() == countryID.upper()):
+                statesDict[states[i]['state_code']] = states[i]['name']
 
         return statesDict
 
@@ -36,9 +35,8 @@ class Region():
 
         citiesDict = {}
         for i in range(len(cities)):
-            if (cities[i]['state_id'] == stateID):
-                citiesDict[cities[i]['id']] = cities[i]['name']
-        print(citiesDict)
+            if (cities[i]['state_code'] == stateID.upper()):
+                citiesDict[cities[i]['name']] = cities[i]['name']
 
         return citiesDict
 
