@@ -6,25 +6,25 @@ function getRegions(type) {
 
     if (type == 'state') {
         id = document.getElementById('country_code').value;
-        
+
     } else if (type == 'city') {
         id = document.getElementById('state').value;
-        
+
     }
-    
+
     selectOptions = refreshSelect(type)
 
     url = `/regions/${type}/${id}`;
 
     fetch(url)
         .then(
-            function(response) {
+            function (response) {
                 if (response.status !== 200) {
                     console.warn('Look like there was a problem. Status Code: ' + response.status);
                     return;
                 }
-                response.json().then(function(data) {
-                 let option;
+                response.json().then(function (data) {
+                    let option;
                     for (var i in data) {
                         option = document.createElement('option');
                         option.text = data[i];
@@ -34,7 +34,7 @@ function getRegions(type) {
                 })
             }
         )
-        .catch(function(err) {
+        .catch(function (err) {
             console.error('Fatch Error - ', err)
         });
 }
@@ -49,4 +49,16 @@ function refreshSelect(type) {
     selectOptions.add(defaultOption);
     selectOptions.selectedIndex = 0;
     return selectOptions
+}
+
+function copyText(elmName) {
+    var value = document.getElementsByName(elmName);
+
+    for (let i = 0; i < value.length; i++) {
+        copy = value[i].outerText
+        if (copy !== 'undefined') {
+            console.log(copy)
+            navigator.clipboard.writeText(copy)
+        };
+    }
 }
