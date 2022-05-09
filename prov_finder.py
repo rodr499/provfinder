@@ -10,25 +10,11 @@ app.config['SECRET_KEY'] = secrets.token_hex()
 
 @app.errorhandler(404)
 def not_found(e):
-    return render_template('/error/404.html')
+    return render_template('/error/404.html',error=e)
 
 @app.route("/", methods=['POST','GET'])
 def main():
-
     countries = Region().callCountry()
-
-    if (req.method == 'POST'):
-
-        country_code =str(req.form.get('country_code') or '')
-        city=str(req.form.get('city') or '')
-        state=str(req.form.get('state') or '')
-
-        results = NPIregistry(1,first_name=req.form['first_name'],last_name=req.form['last_name'],
-        organization_name=req.form['organization_name'],country_code=country_code,city=city,state=state,
-        postal_code=req.form['postal_code']).requestDataset()
-
-        return render_template("main.html", countries=countries, results=result)
-
     return render_template("main.html", countries=countries)
 
 @app.route("/find", methods=['POST','GET'])
@@ -69,8 +55,13 @@ def search():
         results = NPIregistry(1,limit=60,first_name=req.form['first_name'],last_name=req.form['last_name'],
         organization_name=req.form['organization_name'],country_code=country_code,city=city,state=state,
         postal_code=req.form['postal_code']).requestDataset()
-    
-    
+
+        for k, v in results.items():
+            if (k == 'Errors'):
+                return not_found(v[0])
+            elif (results['result_count'] != 0):
+                return render_template("results/resultsTable.html", results=results)
+
     return render_template("results/resultsTable.html", results=results)
 
 @app.route("/regions/<type>/<rid>")

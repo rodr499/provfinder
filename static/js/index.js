@@ -57,7 +57,6 @@ function copyText(elmName) {
     for (let i = 0; i < value.length; i++) {
         copy = value[i].outerText
         if (copy !== 'undefined') {
-            console.log(copy)
             navigator.clipboard.writeText(copy)
         };
     }

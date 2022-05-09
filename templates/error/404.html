@@ -7,5 +7,11 @@
 {% block body %}
 
 <h1> 404 </h1>
-
+<button type="button" class="btn btn-outline-success" onclick="history.back()">Back</button>
+<br/>
+<div class="my-3">
+Field: {{error['field']}}<br/>
+Error Number: {{error['number']}}<br/>
+Description: {{error['description']}}<br/>
+</div>
 {% endblock %}

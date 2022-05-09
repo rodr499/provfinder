@@ -13,9 +13,7 @@
         <tr>
             <th scope="col">NPI</th>
             <th scope="col">Name</th>
-            {% if results['results'].enumeration_type == 'NPI-1' %}
             <th scope="col">Gender</th>
-            {% endif %}
             <th scope="col">NPI Type</th>
             <th scope="col">Primay Taxonomy</th>
         </tr>
@@ -29,6 +27,7 @@
                 <td>{{ item['basic'].gender}}</td>
             {% else %}
                 <td>{{item['basic'].organization_name}}</td>
+                <td></td>
             {% endif %}
             <td>{{item.enumeration_type}}</td>
             {% for taxonomy in item['taxonomies'] %}
