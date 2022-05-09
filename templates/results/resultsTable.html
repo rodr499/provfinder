@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Results</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="my-3">
+<button type="button" class="btn btn-outline-success" onclick="history.back()">Back</button>
+<table class="table my-3">
+    <thead>
+        <tr>
+            <th scope="col">NPI</th>
+            <th scope="col">Name</th>
+            <th scope="col">Gender</th>
+            <th scope="col">NPI Type</th>
+            <th scope="col">Primay Taxonomy</th>
+        </tr>
+    </thead>
+    <tbody> 
+        {%for item in results['results'] %}
+        <tr>
+            <td><a href="{{url_for('provider', number=item.number)}}">{{item.number}}</a></td>
+            {% if item.enumeration_type == 'NPI-1' %}
+                <td>{{item['basic'].last_name}}, {{item['basic'].first_name}}</td>
+                <td>{{ item['basic'].gender}}</td>
+            {% else %}
+                <td>{{item['basic'].organization_name}}</td>
+                <td></td>
+            {% endif %}
+            <td>{{item.enumeration_type}}</td>
+            {% for taxonomy in item['taxonomies'] %}
+                {% if taxonomy.primary == True %}
+                    <td>{{taxonomy.desc}}</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
