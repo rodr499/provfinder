@@ -1,0 +1,307 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{results.basic.first_name | capitalize }} {{results.basic.last_name | capitalize}} Results</title>
+{% endblock %}
+
+{% block body %}
+<div class="row my-3 ">
+    <div class="col text-center">
+        <h1>{% if results.enumeration_type == 'NPI-1' %}
+            {% if results.basic.gender == 'F' %}
+            {% set gender = 'Female' %}
+            <img class="genderIcon" src="{{ url_for('static', filename='img/icons/female_doctor_no_face.png') }}" alt=""
+                srcset="">
+            {% elif results.basic.gender == 'M' %}
+            {% set gender = 'Male' %}
+            <img class="genderIcon" src="{{ url_for('static', filename='img/icons/male_doctor_no_face.png') }}" alt=""
+                srcset="">
+            {% else %}
+            O
+            {% endif %}
+            {% else %}
+            <i class="bi bi-building"></i>
+            {% endif %}
+            NPI Number: {{results.number}}
+        </h1>
+        <h6>Last Updated: {{results.basic.last_updated}}</h6>
+        <h6>Certification Date: {{results.basic.certification_date}}</h6>
+    </div>
+</div>
+
+<div class="row my-3">
+    <div class="col-sm-12 col-md-6 ">
+        <button type="button" class="btn btn-outline-success" onclick="history.back()">Back</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Basic Information</h5>
+
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">NPI</th>
+                                <td name="number">{{results.number}} </td>
+                            </tr>
+                            {% if results.enumeration_type == 'NPI-1' %}
+                            <tr>
+                                <th scope="row">Name</th>
+                                <td name="name">{{results.basic.first_name | capitalize }}
+                                    {% if results.basic.middle_name != None %}
+                                    {{results.basic.middle_name | capitalize}}
+                                    {% endif %}
+                                    {{results.basic.last_name | capitalize}}{% if results.basic.credential %},
+                                    {{results.basic.credential}} {%endif%}
+
+                                </td>
+                            </tr>
+                            {% for item in results.other_names %}
+                            <tr>
+                                <th scope="row">{{item.type}}</th>
+                                <td name="other_name">{{item.first_name| capitalize}} {{item.last_name| capitalize}}{%
+                                    if
+                                    item.credential %}, {{item.credential}} {%endif%} </td>
+                            </tr>
+                            {% endfor%}
+                            <tr>
+                                <th scope="row">Gender</th>
+                                <td name="gender">{{gender}}
+                                </td>
+                            </tr>
+                            {%else%}
+                            <tr>
+                                <th scope="row">Organization Name</th>
+                                <td name="org_name">{{results.basic.organization_name}} </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Organization Subpart</th>
+                                <td>{{results.basic.organizational_subpart}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Authorized Official</th>
+                                <td name="auth_off">{{results.basic.authorized_official_name_prefix}}
+                                    {{results.basic.authorized_official_first_name}}
+                                    {{results.basic.authorized_official_middle_name}}
+                                    {{results.basic.authorized_official_last_name}},
+                                    {{results.basic.authorized_official_title_or_position}}
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Authorized Official Telephone</th>
+                                <td name="auth_phone">{{results.basic.authorized_official_telephone_number}} <i
+                                        class="bi bi-clipboard2"></i></td>
+                            </tr>
+                            {%endif%}
+                            <tr>
+                                <th scope="row">Status</th>
+                                <td>{{results.basic.status}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">NPI Type</th>
+                                <td>{{results.enumeration_type}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if pecos|length != 0 %}
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">PECOS</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in pecos %}
+                        <tr>
+                            <th scope="col">Name</th>
+                            <td>{{item.LAST_NAME}}, {{item.FIRST_NAME}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Part B</th>
+                            <td>{{item.PARTB}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">DME</th>
+                            <td>{{item.DME}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">HHA</th>
+                            <td>{{item.HHA}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">PMD</th>
+                            <td>{{item.PMD}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+
+{%if results.taxonomies|length != 0 %}
+<div class="row my-3">
+    <div class="col">
+        <h4>Taxonomies</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Primary Taxonomy</th>
+                    <th scope="col">Taxonomy Code</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">State</th>
+                    <th scope="col">License Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in results.taxonomies %}
+                <tr>
+                    <td>{{item.primary}}</td>
+                    <td name="tax_code">{{item.code}} </td>
+                    <td name="tax_desc">{{item.desc}} </td>
+                    <td name="tax_state">{{item.state}} </td>
+                    <td name="tax_lic">{{item.license}} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {%endif%}  
+    </div>
+</div>
+
+{%if results.addresses|length != 0 %}
+<div class="row my-3">
+    <div class="col">
+        <h4>Addresses</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Address Purpose</th>
+                    <th scope="col">Address 1</th>
+                    <th scope="col">Address 2</th>
+                    <th scope="col">City</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Zip Code</th>
+                    <th scope="col">Country Name</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Fax Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in results.addresses %}
+                <tr>
+                    <td>{{item.address_purpose}}</td>
+                    <td>{{item.address_1}}</td>
+                    <td>{{item.address_2}}</td>
+                    <td>{{item.city}}</td>
+                    <td>{{item.state}}</td>
+                    <td>{{item.postal_code}}</td>
+                    <td>{{item.country_name}}</td>
+                    <td>{{item.telephone_number}}</td>
+                    <td>{{item.fax_number}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {%endif%}
+    </div>
+</div>
+
+{%if results.identifiers|length != 0 %}
+<div class="row my-3">
+    <div class="col">
+        <h4>Identifiers</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Issuer</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in results.identifiers %}
+                <tr>
+                    <td>{{item.desc}}</td>
+                    <td>{{item.state}}</td>
+                    <td>{{item.identifier}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {%endif%}
+    </div>
+</div>
+
+{%if results.endpoints|length != 0 %}
+<div class="row my-3">
+    <div class="col">
+        <h4>Health Information Exchange</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Endpoint Type</th>
+                    <th scope="col">Endpoint</th>
+                    <th scope="col">Endpoint Description</th>
+                    <th scope="col">Use</th>
+                    <th scope="col">Content Type</th>
+                    <th scope="col">Affiliation</th>
+                    <th scope="col">Endpoint Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in results.endpoints %}
+                <tr>
+                    <td>{{item.endpointType}}</td>
+                    <td name="endpoint">{{item.endpoint}} <i class="bi bi-clipboard2"></td>
+                    <td>{{item.endpointDescription}}</td>
+                    <td>{{item.use}}</td>
+                    <td>{{item.contentType}}</td>
+                    <td>{{item.affiliationName}}</td>
+                    <td>{{item.address_1}} {% if item.address_2 != None %}{{item.address_2}},{% else %},{% endif
+                        %}
+                        {{item.city}}, {{item.state | capitalize}}
+                        {{item.postal_code[:5]}}, {{item.country_name}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {%endif%}
+    </div>
+</div>
+
+<div class="row my-3">
+    <div class="col">
+        Link to actual <a href="https://npiregistry.cms.hhs.gov/registry/provider-view/{{results.number}}"
+            target="_blank">NPPES NPI Registry</a> for this record.
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
