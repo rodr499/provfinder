@@ -1,5 +1,4 @@
-from flask import Flask, jsonify, render_template, request as req, url_for, flash, send_file
-from sqlalchemy import true
+from flask import Flask, jsonify, render_template, request as req, url_for, flash, send_file, session
 from npiApi.npiAPI import NPIregistry
 from npiApi.npiValidation import NPIValidation
 from countries_state_cities.calls import Region
@@ -8,7 +7,8 @@ import pdfkit
 from urllib.parse import urlparse
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from flask_apscheduler import APScheduler
-from function import jobs
+from function import jobs, log
+from sheet.sheet import Sheet 
 
 app = Flask(__name__)
 
@@ -73,8 +73,7 @@ def search():
         state=str(req.form.get('state') or '')
 
         results = NPIregistry(1,limit=60,first_name=req.form['first_name'],last_name=req.form['last_name'],
-        organization_name=req.form['organization_name'],country_code=country_code,city=city,state=state,
-        postal_code=req.form['postal_code']).requestDataset()
+        organization_name=req.form['organization_name'],country_code=country_code,city=city,state=state,        postal_code=req.form['postal_code']).requestDataset()
 
         for k, v in results.items():
             if (k == 'Errors'):
@@ -112,13 +111,47 @@ def pdfgen(number):
     config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
     baseURL = urlparse(req.base_url)
     url = baseURL.hostname + url_for('printPage', number=number)
-   
+
     fileName = 'providerFiles/'+number+'.pdf'
     
     pdfkit.from_url(url,fileName,configuration=config)
 
-
     return send_file(fileName)
+
+@app.route('/bulk', methods=['POST','GET'])
+def bulk():
+    results = []
+    if (req.method == "POST"):
+        npiList = req.form['bulk'].split(',')
+        
+        for number in npiList:
+            npiNumber = number.strip()
+            npiCheck = NPIValidation(npiNumber).checkNPI()
+            if npiCheck:
+                result = NPIregistry(1,number=npiNumber).requestDataset()
+                pecosResults = NPIregistry(2,NPI=npiNumber).requestDataset()
+            
+                for k, v in result.items():
+                    if (k == 'Errors'):
+                        log(msg=v[0])
+                    elif (result['result_count'] != 0):
+                        result['results'][0]['pecos'] = pecosResults
+                results.append(result)
+
+        session['NPIList'] = results
+                    
+        return render_template("results/bulk.html", results=results)                    
+            
+    return render_template("results/bulk.html", results=results)
+
+@app.route('/gen')
+def gen():
+    results = session['NPIList']
+
+    file = Sheet(results).generateSheet()
+
+    return send_file("test.xlsx")
+
 
 if __name__ == "__main__":
     app.config.from_object(Config())

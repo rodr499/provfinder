@@ -24,16 +24,16 @@ def fileCleanUp(path,file_name=None,file_ext=None):
         files = glob.glob(file)
     else:
         file = os.path.join(root_path,path,file_name+file_ext)
-    print(file)
+
     try:
         if len(files) > 0:
             for file_path in files:
                 os.remove(file_path)
         else:
-            os.remove(file)
+            if os.path.exists(file):
+                os.remove(file)
     except Exception as err:
         log(msg=err)
-        print(err)
 
 def jobs():
     fileCleanUp('providerFiles',None,'.pdf')

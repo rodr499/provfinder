@@ -1,0 +1,650 @@
+[
+    {
+        "column": "1",
+        "header": "NPI",
+        "JSONfield": "number",
+        "note": ""
+    },
+    {
+        "column": "2",
+        "header": "Entity Type Code",
+        "JSONfield": "enumeration_type",
+        "note": ""
+    },
+    {
+        "column": "100100",
+        "header": "Full Name",
+        "JSONfield": "None",
+        "note": ""
+    },
+    {
+        "column": "100101",
+        "header": "Last, First Middle",
+        "JSONfield": "None",
+        "note": ""
+    },
+    {
+        "column": "100102",
+        "header": "Last, First M.",
+        "JSONfield": "None",
+        "note": ""
+    },
+    {
+        "column": "5",
+        "header": "Provider Organization Name (Legal Business Name)",
+        "JSONfield": "basic.organization_name",
+        "note": ""
+    },
+    {
+        "column": "100103",
+        "header": "Location Address",
+        "JSONfield": "None",
+        "note": ""
+    },
+    {
+        "column": "100103",
+        "header": "Mialing Address",
+        "JSONfield": "None",
+        "note": ""
+    },
+    {
+        "column": "100103",
+        "header": "Primary Address",
+        "JSONfield": "None",
+        "note": ""
+    },
+    {
+        "column": "100103",
+        "header": "Seconday Address",
+        "JSONfield": "None",
+        "note": ""
+    },
+    {
+        "column": "3",
+        "header": "Replacement NPI",
+        "JSONfield": "basic.replacement_npi",
+        "note": ""
+    },
+    {
+        "column": "4",
+        "header": "Employer Identification Number (EIN)",
+        "JSONfield": "basic.ein",
+        "note": ""
+    },
+    {
+        "column": "6",
+        "header": "Provider Last Name (Legal Name)",
+        "JSONfield": "basic.last_name",
+        "note": ""
+    },
+    {
+        "column": "7",
+        "header": "Provider First Name",
+        "JSONfield": "basic.first_name",
+        "note": ""
+    },
+    {
+        "column": "8",
+        "header": "Provider Middle Name",
+        "JSONfield": "basic.middle_name",
+        "note": ""
+    },
+    {
+        "column": "9",
+        "header": "Provider Name Prefix Text",
+        "JSONfield": "basic.name_prefix",
+        "note": ""
+    },
+    {
+        "column": "10",
+        "header": "Provider Name Suffix Text",
+        "JSONfield": "basic.name_suffix",
+        "note": ""
+    },
+    {
+        "column": "11",
+        "header": "Provider Credential Text",
+        "JSONfield": "basic.credential",
+        "note": ""
+    },
+    {
+        "column": "12",
+        "header": "Provider Other Organization Name",
+        "JSONfield": "other_names[0].organization_name",
+        "note": "Version 1 Only. Version 2 uses Other Name file for Other Organization Names"
+    },
+    {
+        "column": "13",
+        "header": "Provider Other Organization Name Type Code",
+        "JSONfield": "other_names[0].code",
+        "note": ""
+    },
+    {
+        "column": "14",
+        "header": "Provider Other Last Name",
+        "JSONfield": "other_names[0].last_name",
+        "note": ""
+    },
+    {
+        "column": "15",
+        "header": "Provider Other First Name",
+        "JSONfield": "other_names[0].first_name",
+        "note": ""
+    },
+    {
+        "column": "16",
+        "header": "Provider Other Middle Name",
+        "JSONfield": "other_names[0].middle_name",
+        "note": ""
+    },
+    {
+        "column": "17",
+        "header": "Provider Other Name Prefix Text",
+        "JSONfield": "other_names[0].prefix",
+        "note": ""
+    },
+    {
+        "column": "18",
+        "header": "Provider Other Name Suffix Text",
+        "JSONfield": "other_names[0].suffix",
+        "note": ""
+    },
+    {
+        "column": "19",
+        "header": "Provider Other Credential Text",
+        "JSONfield": "other_names[0].credential",
+        "note": ""
+    },
+    {
+        "column": "20",
+        "header": "Provider Other Last Name Type Code",
+        "JSONfield": "other_names[0].code",
+        "note": ""
+    },
+    {
+        "column": "21",
+        "header": "Provider First Line Business Mailing Address",
+        "JSONfield": "addresses[1].address_1",
+        "note": ""
+    },
+    {
+        "column": "22",
+        "header": "Provider Second Line Business Mailing Address",
+        "JSONfield": "addresses[1].address_2",
+        "note": ""
+    },
+    {
+        "column": "23",
+        "header": "Provider Business Mailing Address City Name",
+        "JSONfield": "addresses[1].city",
+        "note": ""
+    },
+    {
+        "column": "24",
+        "header": "Provider Business Mailing Address State Name",
+        "JSONfield": "addresses[1].state",
+        "note": ""
+    },
+    {
+        "column": "25",
+        "header": "Provider Business Mailing Address Postal Code",
+        "JSONfield": "addresses[1].postal_code",
+        "note": ""
+    },
+    {
+        "column": "26",
+        "header": "Provider Business Mailing Address Country Code (If outside U.S.)",
+        "JSONfield": "addresses[1].country_code",
+        "note": ""
+    },
+    {
+        "column": "27",
+        "header": "Provider Business Mailing Address Telephone Number",
+        "JSONfield": "addresses[1].telephone_number",
+        "note": ""
+    },
+    {
+        "column": "28",
+        "header": "Provider Business Mailing Address Fax Number",
+        "JSONfield": "addresses[1].fax_number",
+        "note": ""
+    },
+    {
+        "column": "29",
+        "header": "Provider First Line Business Practice Location Address",
+        "JSONfield": "addresses[0].address_1",
+        "note": ""
+    },
+    {
+        "column": "30",
+        "header": "Provider Second Line Business Practice Location Address",
+        "JSONfield": "addresses[0].address_2",
+        "note": ""
+    },
+    {
+        "column": "31",
+        "header": "Provider Business Practice Location Address City Name",
+        "JSONfield": "addresses[0].city",
+        "note": ""
+    },
+    {
+        "column": "32",
+        "header": "Provider Business Practice Location Address State Name",
+        "JSONfield": "addresses[0].state",
+        "note": ""
+    },
+    {
+        "column": "33",
+        "header": "Provider Business Practice Location Address Postal Code",
+        "JSONfield": "addresses[0].postal_code",
+        "note": ""
+    },
+    {
+        "column": "34",
+        "header": "Provider Business Practice Location Address Country Code (If outside U.S.)",
+        "JSONfield": "addresses[0].country_code",
+        "note": ""
+    },
+    {
+        "column": "35",
+        "header": "Provider Business Practice Location Address Telephone Number",
+        "JSONfield": "addresses[0].telephone_number",
+        "note": ""
+    },
+    {
+        "column": "36",
+        "header": "Provider Business Practice Location Address Fax Number",
+        "JSONfield": "addresses[0].fax_number",
+        "note": ""
+    },
+    {
+        "column": "37",
+        "header": "Provider Enumeration Date",
+        "JSONfield": "basic.enumeration_date",
+        "note": ""
+    },
+    {
+        "column": "38",
+        "header": "Last Update Date",
+        "JSONfield": "basic.last_updated",
+        "note": ""
+    },
+    {
+        "column": "39",
+        "header": "NPI Deactivation Reason Code",
+        "JSONfield": "basic.deactivation_reason_code",
+        "note": ""
+    },
+    {
+        "column": "40",
+        "header": "NPI Deactivation Date",
+        "JSONfield": "basic.deactivation_date",
+        "note": ""
+    },
+    {
+        "column": "41",
+        "header": "NPI Reactivation Date",
+        "JSONfield": "basic.reactivation_date",
+        "note": ""
+    },
+    {
+        "column": "42",
+        "header": "Provider Gender Code",
+        "JSONfield": "basic.gender",
+        "note": ""
+    },
+    {
+        "column": "43",
+        "header": "Authorized Official Last Name",
+        "JSONfield": "basic.authorized_official_last_name",
+        "note": ""
+    },
+    {
+        "column": "44",
+        "header": "Authorized Official First Name",
+        "JSONfield": "basic.authorized_official_first_name",
+        "note": ""
+    },
+    {
+        "column": "45",
+        "header": "Authorized Official Middle Name",
+        "JSONfield": "basic.authorized_official_middle_name",
+        "note": ""
+    },
+    {
+        "column": "46",
+        "header": "Authorized Official Title or Position",
+        "JSONfield": "basic.authorized_official_title_or_position",
+        "note": ""
+    },
+    {
+        "column": "47",
+        "header": "Authorized Official Telephone Number",
+        "JSONfield": "basic.authorized_official_telephone_number",
+        "note": ""
+    },
+    {
+        "column": "48",
+        "header": "Healthcare Provider Taxonomy Code_1",
+        "JSONfield": "taxonomies[0].code",
+        "note": ""
+    },
+    {
+        "column": "49",
+        "header": "Provider License Number_1",
+        "JSONfield": "taxonomies[0].license",
+        "note": ""
+    },
+    {
+        "column": "50",
+        "header": "Provider License Number State Code_1",
+        "JSONfield": "taxonomies[0].state",
+        "note": ""
+    },
+    {
+        "column": "51",
+        "header": "Healthcare Provider Primary Taxonomy",
+        "JSONfield": "taxonomies[0].primary",
+        "note": ""
+    },
+    {
+        "column": "104",
+        "header": "Healthcare Provider Taxonomy",
+        "JSONfield": "taxonomies[14].code",
+        "note": ""
+    },
+    {
+        "column": "105",
+        "header": "Provider License Number",
+        "JSONfield": "taxonomies[14].license",
+        "note": ""
+    },
+    {
+        "column": "106",
+        "header": "Provider License Number State",
+        "JSONfield": "taxonomies[14].state",
+        "note": ""
+    },
+    {
+        "column": "107",
+        "header": "Healthcare Provider Primary Taxonomy Switch_15",
+        "JSONfield": "taxonomies[14].primary",
+        "note": ""
+    },
+    {
+        "column": "108",
+        "header": "Other Provider Identifier",
+        "JSONfield": "identifiers[0].identifier",
+        "note": ""
+    },
+    {
+        "column": "109",
+        "header": "Other Provider Identifier Type Code",
+        "JSONfield": "identifiers[0].code",
+        "note": ""
+    },
+    {
+        "column": "110",
+        "header": "Other Provider Identifier State",
+        "JSONfield": "identifiers[0].state",
+        "note": ""
+    },
+    {
+        "column": "111",
+        "header": "Other Provider Identifier Issuer",
+        "JSONfield": "identifiers[0].issuer",
+        "note": ""
+    },
+    {
+        "column": "304",
+        "header": "Other Provider Identifier_50",
+        "JSONfield": "identifiers[49].identifier",
+        "note": ""
+    },
+    {
+        "column": "305",
+        "header": "Other Provider Identifier Type Code_50",
+        "JSONfield": "identifiers[49].code",
+        "note": ""
+    },
+    {
+        "column": "306",
+        "header": "Other Provider Identifier State_50",
+        "JSONfield": "identifiers[49].state",
+        "note": ""
+    },
+    {
+        "column": "307",
+        "header": "Other Provider Identifier Issuer_50",
+        "JSONfield": "identifiers[49].issuer",
+        "note": ""
+    },
+    {
+        "column": "308",
+        "header": "Is Sole Proprietor",
+        "JSONfield": "basic.sole_proprietor",
+        "note": ""
+    },
+    {
+        "column": "309",
+        "header": "Is Organization Subpart",
+        "JSONfield": "basic.organizational_subpart",
+        "note": ""
+    },
+    {
+        "column": "310",
+        "header": "Parent Organization LBN",
+        "JSONfield": "basic.parent_organization_legal_business_name",
+        "note": ""
+    },
+    {
+        "column": "311",
+        "header": "Parent Organization TIN",
+        "JSONfield": "basic.parent_organization_ein",
+        "note": ""
+    },
+    {
+        "column": "312",
+        "header": "Authorized Official Name Prefix Text",
+        "JSONfield": "basic.authorized_official_name_prefix",
+        "note": ""
+    },
+    {
+        "column": "313",
+        "header": "Authorized Official Name Suffix Text",
+        "JSONfield": "basic.authorized_official_name_suffix",
+        "note": ""
+    },
+    {
+        "column": "314",
+        "header": "Authorized Official Credential Text",
+        "JSONfield": "basic.authorized_official_credential",
+        "note": ""
+    },
+    {
+        "column": "315",
+        "header": "Healthcare Provider Taxonomy Group_1",
+        "JSONfield": "taxonomies[0].taxonomy_group",
+        "note": ""
+    },
+    {
+        "column": "329",
+        "header": "Healthcare Provider Taxonomy Group_15",
+        "JSONfield": "taxonomies[14].taxonomy_group",
+        "note": ""
+    },
+    {
+        "column": "330",
+        "header": "Certification Date",
+        "JSONfield": "basic.certification_date",
+        "note": ""
+    },
+    {
+        "column": "332",
+        "header": "Endpoint Type",
+        "JSONfield": "endpoints[n].endpointType",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "333",
+        "header": "Endpoint Type Description",
+        "JSONfield": "endpoints[n].endpointTypeDescription",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "334",
+        "header": "Endpoint",
+        "JSONfield": "endpoints[n].endpoint",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "335",
+        "header": "Affiliation",
+        "JSONfield": "endpoints[n].affiliation",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "336",
+        "header": "Endpoint Description",
+        "JSONfield": "endpoints[n].endpointDescription",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "337",
+        "header": "Affiliation Legal Business Name",
+        "JSONfield": "endpoints[n].affliationName",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "338",
+        "header": "Use Code",
+        "JSONfield": "endpoints[n].use",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "339",
+        "header": "Use Description",
+        "JSONfield": "endpoints[n].useDescription",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "340",
+        "header": "Other Use Description",
+        "JSONfield": "endpoints[n].useOtherDescription",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "341",
+        "header": "Content Code",
+        "JSONfield": "endpoints[n].contentType",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "342",
+        "header": "Content Description",
+        "JSONfield": "endpoints[n].contentTypeDescription",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "343",
+        "header": "Other Content Description",
+        "JSONfield": "endpoints[n].contentOtherDescription",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "344",
+        "header": "Affiliation Address Line One",
+        "JSONfield": "endpoints[n].address_1",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "345",
+        "header": "Affiliation Address Line Two",
+        "JSONfield": "endpoints[n].address_2",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "346",
+        "header": "Affiliation Address City",
+        "JSONfield": "endpoints[n].city",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "347",
+        "header": "Affiliation Address State",
+        "JSONfield": "endpoints[n].state",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "348",
+        "header": "Affiliation Address Country",
+        "JSONfield": "endpoints[n].country_code",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "349",
+        "header": "Affiliation Address Postal Code",
+        "JSONfield": "endpoints[n].postal_code",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "351",
+        "header": "Provider Other Organization Name",
+        "JSONfield": "other_names[n].organization_name",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "352",
+        "header": "Provider Other Organization Name Type Code",
+        "JSONfield": "other_names[n].code",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "353",
+        "header": "Provider Secondary Practice Location Address- Address Line 1",
+        "JSONfield": "practiceLocations[n].address_1",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "354",
+        "header": "Provider Secondary Practice Location Address- Address Line 2",
+        "JSONfield": "practiceLocations[n].address_2",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "355",
+        "header": "Provider Secondary Practice Location Address- City Name",
+        "JSONfield": "practiceLocations[n].city",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "356",
+        "header": "Provider Secondary Practice Location Address- State Name",
+        "JSONfield": "practiceLocations[n].state",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "357",
+        "header": "Provider Secondary Practice Location Address- Postal Code",
+        "JSONfield": "practiceLocations[n].postal_code",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "358",
+        "header": "Provider Secondary Practice Location Address- Country Code",
+        "JSONfield": "practiceLocations[n].country_code",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "359",
+        "header": "Provider Secondary Practice Location Address- Telephone Number",
+        "JSONfield": "practiceLocations[n].telephone_number",
+        "note": "Version 2 only"
+    },
+    {
+        "column": "360",
+        "header": "Provider Secondary Practice Location Address- Exenstion",
+        "JSONfield": "practiceLocations[n].telephone_number",
+        "note": "Stored with Telephone Number in Telephone Number field. Version 2 only"
+    }
+]

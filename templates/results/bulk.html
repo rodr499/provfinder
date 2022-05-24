@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Bluk Results</title>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <form action="" method="POST">
+        <div class="col-sm-12 col-md-8 mx-auto">
+            <div class="my-3 ">
+                <label for="bluk">Enter Bluk NPI (comma delimited)</label>
+                <textarea class="form-control" id="bulk" name="bulk" row="4"></textarea>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-8 mx-auto">
+            <button type="submit" class="btn btn-outline-success">Submit</button>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div class="col">
+        <table class="table my-3">
+            <thead>
+                <tr>
+                    <th scope="col">NPI</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">NPI Type</th>
+                    <th scope="col">Primay Taxonomy</th>
+                </tr>
+            </thead>
+            <tbody> 
+                {%for i in range(results|length) %}
+                <tr>
+                    <td>{{results[i]['results'][0].number}}</a></td>
+                    {% if results[i]['results'][0].enumeration_type == 'NPI-1' %}
+                        <td>{{results[i]['results'][0]['basic'].last_name}}, {{results[i]['results'][0]['basic'].first_name}}</td>
+                        <td>{{results[i]['results'][0]['basic'].gender}}</td>
+                    {% else %}
+                        <td>{{results[i]['results'][0]['basic'].organization_name}}</td>
+                        <td></td>
+                    {% endif %}
+                    <td>{{results[i]['results'][0].enumeration_type}}</td>
+                    {% for taxonomy in results[i]['results'][0]['taxonomies'] %}
+                        {% if taxonomy.primary == True %}
+                            <td>{{taxonomy.desc}}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-3">
+           <a href="{{url_for('gen')}}" class="btn btn-outline-success">Export</a> 
+        </div>
+    </div>
+    
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
