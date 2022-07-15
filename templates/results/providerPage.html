@@ -1,0 +1,347 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Print Results</title>
+{% endblock %}
+
+{% block body %}
+<div class="row my-3">
+    <div class="col">
+        <h1>{% if results.enumeration_type == 'NPI-1' %}
+            {% if results.basic.gender == 'F' %}
+            {% set gender = 'Female' %}
+            <img class="genderIcon" src="{{ url_for('static', filename='img/icons/female_doctor_no_face.png') }}" alt=""
+                srcset="">
+            {% elif results.basic.gender == 'M' %}
+            {% set gender = 'Male' %}
+            <img class="genderIcon" src="{{ url_for('static', filename='img/icons/male_doctor_no_face.png') }}" alt=""
+                srcset="">
+            {% else %}
+            O
+            {% endif %}
+            {% else %}
+            <i class="bi bi-building"></i>
+            {% endif %}
+            NPI Number: {{results.number}}
+        </h1>
+        <h6>Last Updated: {{results.basic.last_updated}}</h6>
+        <h6>Certification Date: {{results.basic.certification_date}}</h6>
+    </div>
+    {% if pecos|length != 0 %}
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">PECOS</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Part B</th>
+                            <th scope="col">DME</th>
+                            <th scope="col">HHA</th>
+                            <th scope="col">PMD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in pecos %}
+                        <tr>
+                            <td>{{item.LAST_NAME}}</td>
+                            <td>{{item.FIRST_NAME}}</td>
+                            <td>{{item.PARTB}}</td>
+                            <td>{{item.PARTB}}</td>
+                            <td>{{item.PARTB}}</td>
+                            <td>{{item.PMD}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="row my-3">
+    <div class="col-sm-12 col-md-6 mx-auto">
+        <button type="button" class="btn btn-outline-success" onclick="history.back()">Back</button>
+    </div>
+    <div class="col-sm-12 col-md-6">
+        <div class="btn-group">
+            <a href="{{url_for('pdfgen', number=results.number)}}" type="button" class="btn btn-outline-secondary"
+                target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                    class="bi bi-filetype-pdf" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#basic"
+                aria-expanded="true" aria-controls="basic">
+                Basic Information
+            </button>
+        </h2>
+        <div id="basic" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">NPI</th>
+                            <td name="number">{{results.number}} <i class="bi bi-clipboard2"
+                                    onclick="copyText('number')"></i></td>
+                        </tr>
+                        {% if results.enumeration_type == 'NPI-1' %}
+                        <tr>
+                            <th scope="row">Name</th>
+                            <td name="name">{{results.basic.first_name | capitalize }}
+                                {% if results.basic.middle_name != None %}
+                                {{results.basic.middle_name | capitalize}}
+                                {% endif %}
+                                {{results.basic.last_name | capitalize}}{% if results.basic.credential %},
+                                {{results.basic.credential}} {%endif%}
+                                <i class="bi bi-clipboard2" onclick="copyText('name')"></i>
+                            </td>
+                        </tr>
+                        {% for item in results.other_names %}
+                        <tr>
+                            <th scope="row">{{item.type}}</th>
+                            <td name="other_name">{{item.first_name| capitalize}} {{item.last_name| capitalize}}{% if
+                                item.credential %}, {{item.credential}} {%endif%} <i class="bi bi-clipboard2"
+                                    onclick="copyText('other_name')"></i></td>
+                        </tr>
+                        {% endfor%}
+                        <tr>
+                            <th scope="row">Gender</th>
+                            <td name="gender">{{gender}} <i class="bi bi-clipboard2" onclick="copyText('gender')"></i>
+                            </td>
+                        </tr>
+                        {%else%}
+                        <tr>
+                            <th scope="row">Organization Name</th>
+                            <td name="org_name">{{results.basic.organization_name}} <i class="bi bi-clipboard2"
+                                    onclick="copyText('org_name')"></i></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Organization Subpart</th>
+                            <td>{{results.basic.organizational_subpart}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Authorized Official</th>
+                            <td name="auth_off">{{results.basic.authorized_official_name_prefix}}
+                                {{results.basic.authorized_official_first_name}}
+                                {{results.basic.authorized_official_middle_name}}
+                                {{results.basic.authorized_official_last_name}},
+                                {{results.basic.authorized_official_title_or_position}}
+                                <i class="bi bi-clipboard2" onclick="copyText('auth_off')"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Authorized Official Telephone</th>
+                            <td name="auth_phone">{{results.basic.authorized_official_telephone_number}} <i
+                                    class="bi bi-clipboard2" onclick="copyText('auth_phone')"></i></td>
+                        </tr>
+                        {%endif%}
+                        <tr>
+                            <th scope="row">Status</th>
+                            <td>{{results.basic.status}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">NPI Type</th>
+                            <td>{{results.enumeration_type}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {%if results.taxonomies|length != 0 %}
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#taxonomies" aria-expanded="false" aria-controls="taxonomies">
+                Taxonomies
+            </button>
+        </h2>
+        <div id="taxonomies" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Primary Taxonomy</th>
+                            <th scope="col">Taxonomy Code</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">State</th>
+                            <th scope="col">License Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in results.taxonomies %}
+                        <tr>
+                            <td>{{item.primary}}</td>
+                            <td name="tax_code">{{item.code}} <i class="bi bi-clipboard2"
+                                    onclick="copyText('tax_code')"></i></td>
+                            <td name="tax_desc">{{item.desc}} <i class="bi bi-clipboard2"
+                                    onclick="copyText('tax_desc')"></i></td>
+                            <td name="tax_state">{{item.state}} <i class="bi bi-clipboard2"
+                                    onclick="copyText('tax_state')"></i></td>
+                            <td name="tax_lic">{{item.license}} <i class="bi bi-clipboard2"
+                                    onclick="copyText('tax_lic')"></i></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {%endif%}
+    {%if results.addresses|length != 0 %}
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#address"
+                aria-expanded="false" aria-controls="address">
+                Addresses
+            </button>
+        </h2>
+        <div id="address" class="accordion-collapse collapse" aria-labelledby="headingThree"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Address Purpose</th>
+                            <th scope="col">Address 1</th>
+                            <th scope="col">Address 2</th>
+                            <th scope="col">City</th>
+                            <th scope="col">State</th>
+                            <th scope="col">Zip Code</th>
+                            <th scope="col">Country Name</th>
+                            <th scope="col">Phone Number</th>
+                            <th scope="col">Fax Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in results.addresses %}
+                        <tr>
+                            <td>{{item.address_purpose}}</td>
+                            <td>{{item.address_1}}</td>
+                            <td>{{item.address_2}}</td>
+                            <td>{{item.city}}</td>
+                            <td>{{item.state}}</td>
+                            <td>{{item.postal_code}}</td>
+                            <td>{{item.country_name}}</td>
+                            <td>{{item.telephone_number}}</td>
+                            <td>{{item.fax_number}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {%endif%}
+    {%if results.identifiers|length != 0 %}
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#identifiers" aria-expanded="false" aria-controls="identifiers">
+                Identifiers
+            </button>
+        </h2>
+        <div id="identifiers" class="accordion-collapse collapse" aria-labelledby="headingThree"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Issuer</th>
+                            <th scope="col">State</th>
+                            <th scope="col">Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in results.identifiers %}
+                        <tr>
+                            <td>{{item.desc}}</td>
+                            <td>{{item.state}}</td>
+                            <td>{{item.identifier}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {%endif%}
+    {%if results.endpoints|length != 0 %}
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#hie"
+                aria-expanded="false" aria-controls="identifiers">
+                Health Information Exchange
+            </button>
+        </h2>
+        <div id="hie" class="accordion-collapse collapse" aria-labelledby="headingThree"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Endpoint Type</th>
+                            <th scope="col">Endpoint</th>
+                            <th scope="col">Endpoint Description</th>
+                            <th scope="col">Use</th>
+                            <th scope="col">Content Type</th>
+                            <th scope="col">Affiliation</th>
+                            <th scope="col">Endpoint Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in results.endpoints %}
+                        <tr>
+                            <td>{{item.endpointType}}</td>
+                            <td name="endpoint">{{item.endpoint}} <i class="bi bi-clipboard2"
+                                    onclick="copyText('endpoint')"></td>
+                            <td>{{item.endpointDescription}}</td>
+                            <td>{{item.use}}</td>
+                            <td>{{item.contentType}}</td>
+                            <td>{{item.affiliationName}}</td>
+                            <td>{{item.address_1}} {% if item.address_2 != None %}{{item.address_2}},{% else %},{% endif
+                                %}
+                                {{item.city}}, {{item.state | capitalize}}
+                                {{item.postal_code[:5]}}, {{item.country_name}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {%endif%}
+</div>
+
+<div class="row my-3">
+    <div class="col">
+        Link to actual <a href="https://npiregistry.cms.hhs.gov/registry/provider-view/{{results.number}}"
+            target="_blank">NPPES NPI Registry</a> for this record.
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

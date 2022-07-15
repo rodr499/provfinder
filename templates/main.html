@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Home</title>
+{% endblock %}
+
+{% block body %}
+<div class="my-3"></div>
+<form action="{{url_for('search')}}" method="POST">
+    <div class="row">
+        <div class="col-sm-12 col-md-4 mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" name="first_name" id="firstName" value="">
+        </div>
+        <div class="col-sm-12 col-md-4 mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" name="last_name" id="LastName" value="">
+        </div>
+        <div class="col-sm-12 col-md-4 mb-3">
+            <label for="lastName" class="form-label">Organization Name</label>
+            <input type="text" class="form-control" name="organization_name" id="organization_name" value="">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-3 mb-3">
+            <select class="form-select" aria-label="Select country" name="country_code" id="country_code" onchange="getRegions('state');">
+                <option selected value="">Select country</option>
+                {% for country in countries %}
+                <option value="{{country}}">{{countries[country]}}</option>
+                {% endfor %}   
+            </select>
+        </div>
+        <div class="col-sm-12 col-md-3 mb-3">
+            <select class="form-select" aria-label="Select State" name="state" id="state" onchange="getRegions('city');">
+                <option selected value="">Select state</option>
+            </select>
+        </div>
+        <div class="col-sm-12 col-md-3 mb-3">
+            <select class="form-select" aria-label="Select City" name="city" id="city">
+                <option selected value="">Select city</option>
+            </select>
+        </div>
+        <div class="col-sm-12 col-md-3 mb-3">
+            <input class="form-control" type="text" name="postal_code" id="postal_code" value="" placeholder="Postal Code">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <input class="btn btn-outline-success" type="submit" value="Search">
+        </div>
+    </div>
+
+</form>
+{% endblock %}
+
+{% block footer %}{% endblock %}
